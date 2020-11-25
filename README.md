@@ -1,7 +1,6 @@
 # java-benchmark
 
-#### java 基准测试介绍
-{**以下是关于 JAVA 基准测试的一些基本概念**}
+#### java 基准测试
 
 JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准测试的工具套件；主要用于基于方法层面的微基准测试
 精度可达到纳秒级别。
@@ -26,7 +25,7 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 * BenchmarkMode 使用模式；
     * Mode.Throughput : 吞吐量；
     * Mode.AverageTime: 响应时间；
-    * Mode.SampleTime: 采样时间了；
+    * Mode.SampleTime: 采样时间；
     * Mode.All: 表示统计以上所有指标；
 * Warmup: 预热， 默认预热1次；
 * Measurement: 配置执行次数（Iterator）和执行时间/每次（time）
@@ -34,6 +33,31 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 * Fork： 多个单独进程，分别测试每个方法；（每个方法多少进程）
 * OutputTimeUnit：统计结果的时间单元；
 
+* State 对象的生命周期：`@State(Scope.Benchmark)` 
+
+#### 运行结果
+```bash 
+Result "com.lab.jmh.test.MyBatchmarkDemo.testBefore":
+  144330.689 ±(99.9%) 3986.539 ops/s [Average]
+  (min, avg, max) = (139887.020, 144330.689, 147419.834), stdev = 2636.848
+  CI (99.9%): [140344.150, 148317.228] (assumes normal distribution)
+
+
+# Run complete. Total time: 00:05:01
+
+REMEMBER: The numbers below are just data. To gain reusable insights, you need to follow up on
+why the numbers are the way they are. Use profilers (see -prof, -lprof), design factorial
+experiments, perform baseline and negative tests that provide experimental control, make sure
+the benchmarking environment is safe on JVM/OS/HW level, ask for reviews from the domain experts.
+Do not assume the numbers tell you what you want them to tell.
+
+Benchmark                    Mode  Cnt       Score       Error  Units
+MyBatchmarkDemo.testAfter   thrpt   10  125335.652 ± 25823.147  ops/s
+MyBatchmarkDemo.testBefore  thrpt   10  144330.689 ±  3986.539  ops/s
+```
+> stdev： 标准差，反应数值相对于平均值的离散程度；<br>
+> CI（Corfindence interval）：置信区间，这里相当于处理能力的一个估计区间；在统计学中，置信区间反应了当前样本的某个总体
+> 参数的区间估计；<br>
 
 #### 相关文章
 [JMH - Java Microbenchmark Harness](http://tutorials.jenkov.com/java-performance/jmh.html)

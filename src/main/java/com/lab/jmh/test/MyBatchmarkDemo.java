@@ -28,7 +28,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  */
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 10)
-@Measurement(iterations = 10000, time = 5, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.SECONDS)
 @Threads(1)
 @Fork(1)
 @OutputTimeUnit(TimeUnit.SECONDS)
@@ -37,11 +37,13 @@ public class MyBatchmarkDemo {
 	@Benchmark
 	public static void testBefore() {
 		// 优化之前
+		System.out.println("====优化前======");
 	}
 
 	@Benchmark
 	public static void testAfter() {
 		// 优化之后
+		System.out.println("-----优化后-----");
 	}
 
 	public static void main(String[] args) throws RunnerException {
