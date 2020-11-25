@@ -18,6 +18,12 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * @author Xudong
  * @program GTMC-COUPON
  * @decription <br>
+ *     预热 10 次
+ *     每次执行 5s， 执行10000次
+ *     一个线程
+ *     每个方法一个进程
+ *     统计单位（秒）
+ *
  * @date 11/25/20 5:55 PM
  */
 @BenchmarkMode(Mode.Throughput)
