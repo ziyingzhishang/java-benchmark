@@ -1,4 +1,4 @@
-package com.lab.jmh.test;
+package com.lab.jmh;
 
 import java.util.concurrent.TimeUnit;
 import org.openjdk.jmh.annotations.Benchmark;

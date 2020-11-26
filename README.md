@@ -10,7 +10,7 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 > （先执行几次，JVM 就会生成机器码），这也就是 JMH 提供的"预热处理"。
 
 #### 项目结构
-｜- officia  // OpenJDK 官方的测试 demo 供参考
+｜- com.lab.jmh.officia  // OpenJDK 官方的测试 demo 供参考
 ｜- test     // 自己在平时学习时加入的基准测试；（字符串拼接，列表，序列化等）
 
 #### 使用说明
