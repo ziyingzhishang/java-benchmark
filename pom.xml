@@ -13,6 +13,7 @@
         <module>openjdk-officia</module>
         <module>mapperstruct</module>
         <module>jmh-demo</module>
+      <module>spring-framework</module>
     </modules>
 
     <properties>
