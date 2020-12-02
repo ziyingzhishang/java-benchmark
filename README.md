@@ -10,8 +10,11 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 > （先执行几次，JVM 就会生成机器码），这也就是 JMH 提供的"预热处理"。
 
 #### 项目结构
-｜- com.lab.jmh.officia  // OpenJDK 官方的测试 demo 供参考
-｜- test     // 自己在平时学习时加入的基准测试；（字符串拼接，列表，序列化等）
+｜- openjdk-officia  // OpenJDK 官方的测试 demo 供参考
+｜- jmh-demo         // 自己在平时学习时加入的基准测试；（字符串拼接，列表，序列化等）
+｜- mapperstruct     // 针对mapStruct 框架的对象映射做测试；
+｜- spring-framework // 收录 spring-framework 官方的基准测试，也加入自己在开发过程中遇到的相关的测试；
+｜- java-coroutines  // java 协程相关的基准测试
 
 #### 使用说明
 > 在 IDEA 中执行基准测试时，使用 `Run` 的方式，不能使用 `Debug`；<br>

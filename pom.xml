@@ -14,6 +14,7 @@
         <module>mapperstruct</module>
         <module>jmh-demo</module>
       <module>spring-framework</module>
+        <module>java-coroutines</module>
     </modules>
 
     <properties>
