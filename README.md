@@ -11,7 +11,7 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 
 #### 项目结构
 ｜- openjdk-officia  // OpenJDK 官方的测试 demo 供参考
-｜- jmh-demo         // 自己在平时学习时加入的基准测试；（字符串拼接，列表，序列化等）
+｜- jmh-demo         // 自己在平时学习时加入的基准测试，包含 JMH 使用式样；（字符串拼接，列表，序列化等）
 ｜- mapperstruct     // 针对mapStruct 框架的对象映射做测试；
 ｜- spring-framework // 收录 spring-framework 官方的基准测试，也加入自己在开发过程中遇到的相关的测试；
 ｜- java-coroutines  // java 协程相关的基准测试
@@ -19,6 +19,21 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 #### 使用说明
 > 在 IDEA 中执行基准测试时，使用 `Run` 的方式，不能使用 `Debug`；<br>
 > 执行报错，最好执行一次 `mvn clean` 再进行尝试；
+> JMH 在编译的时候会对循环进行优化，如果发现某个变量没有被使用会被优化掉:
+> ```java 
+>   public class MyBenchmark {
+>    
+>        @Benchmark
+>        public void testMethod() {
+>            int a = 1;
+>            int b = 2;
+>            int sum = a + b;       // Dead Code
+>        }
+>    
+>    }
+> 
+>  改为 return sum ， 这样就不会被编译器优化掉，从而测出比较准确的结果；
+> ```
 
 ##### 基础概念
 * OPS 每秒操作量，衡量性能的重要指标；
@@ -37,6 +52,17 @@ JMH (Java Microbenchmark Hardness) 微基准测试，专门用于代码微基准
 * OutputTimeUnit：统计结果的时间单元；
 
 * State 对象的生命周期：`@State(Scope.Benchmark)` 
+> 在类上使用，State 中注明某些变量是 Thread 生效或者整个测试都生效 Benchmark
+```java
+@State(Scope.Benchmark)
+public class MyBenchmarkStateSimple {
+  AreaService areaService = new AreaService();
+  PreferAreaService perferAreaService = new PreferAreaService();
+  List<Area> data = buildData(20);
+  //忽略其他代码
+}
+```
+
 
 #### 运行结果
 ```bash 
@@ -68,6 +94,8 @@ MyBatchmarkDemo.testBefore  thrpt   10  144330.689 ±  3986.539  ops/s
 [JMH - OpenJDK](http://openjdk.java.net/projects/code-tools/jmh/)
 
 [JMH 插件](https://github.com/artyushov/idea-jmh-plugin)
+
+[Java性能优化-掌握JMH](https://my.oschina.net/xiandafu/blog/3067186)
 
 #### 参与贡献
 

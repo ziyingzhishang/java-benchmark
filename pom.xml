@@ -23,9 +23,25 @@
         <java.version>1.8</java.version>
 
         <jmh.version>1.26</jmh.version>
+        <hutool.version>4.5.5</hutool.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.22</version>
+        </dependency>
+        <dependency>
+            <artifactId>hutool-core</artifactId>
+            <groupId>cn.hutool</groupId>
+            <version>${hutool.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>

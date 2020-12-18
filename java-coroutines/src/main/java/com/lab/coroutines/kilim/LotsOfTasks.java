@@ -6,9 +6,12 @@
 
 package com.lab.coroutines.kilim;
 
-import kilim.*;
+import kilim.ExitMsg;
+import kilim.Mailbox;
+import kilim.Pausable;
+import kilim.Task;
 
-// Usage: java kilim.bench.LotsOfTasks -ntasks  
+// Usage: java kilim.bench.LotsOfTasks -ntasks
 //                 creates ntasks and waits for them to finish
 // Or     
 //Usage: java kilim.bench.LotsOfTasks ntasks pause 
