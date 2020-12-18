@@ -19,29 +19,31 @@ import jdk.nashorn.internal.ir.IfNode;
  * @date 2020/12/11 5:56 下午
  */
 class Huffman {
-	private String str;		// 最初用于压缩的字符串
-	private HNode root;		// 哈夫曼二叉树的根节点
-	private boolean flag;	// 最新的字符是否已经存在的标签
-	private LinkedList<CharData> charList;	// 存储不同字符的队列 相同字符存在同一位置
-	private LinkedList<HNode> NodeList;		// 存储节点的队列
+
+	private String str;        // 最初用于压缩的字符串
+	private HNode root;        // 哈夫曼二叉树的根节点
+	private boolean flag;    // 最新的字符是否已经存在的标签
+	private LinkedList<CharData> charList;    // 存储不同字符的队列 相同字符存在同一位置
+	private LinkedList<HNode> NodeList;        // 存储节点的队列
 
 	private static Huffman huff = null;
-	private static final String data = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final String data = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_|";
 
 	private class CharData {
+
 		int num = 1; // 字符个数
 		char c; // 字符
 
-		public CharData(char ch){
+		public CharData(char ch) {
 			c = ch;
 		}
 	}
 
 	private class HNode {
 
-		public String code = "";	// 节点的哈夫曼编码
-		public String data = "";	// 节点的数据
-		public int count;			// 节点的权值
+		public String code = "";    // 节点的哈夫曼编码
+		public String data = "";    // 节点的数据
+		public int count;            // 节点的权值
 		public HNode lChild;
 		public HNode rChild;
 
@@ -70,7 +72,7 @@ class Huffman {
 			return code;
 		}
 
- 		public boolean isLeaf() {
+		public boolean isLeaf() {
 			return lChild == null && rChild == null;
 		}
 	}
@@ -136,7 +138,7 @@ class Huffman {
 			for (int j = 0; j < charList.size(); j++) {
 				CharData data = charList.get(j);
 
-				if(ch == data.c){
+				if (ch == data.c) {
 					// 字符对象链表中有相同字符则将个数加1
 					data.num++;
 					flag = false;
@@ -144,7 +146,7 @@ class Huffman {
 				}
 			}
 
-			if(flag){
+			if (flag) {
 				// 字符对象链表中没有相同字符则创建新对象加如链表
 				charList.add(new CharData(ch));
 			}
@@ -213,6 +215,7 @@ class Huffman {
 
 	/**
 	 * 设置结点的哈夫曼编码
+	 *
 	 * @param root
 	 */
 	private void setCode(HNode root) {
@@ -231,8 +234,7 @@ class Huffman {
 	/**
 	 * 遍历
 	 *
-	 * @param node
-	 *            节点
+	 * @param node 节点
 	 */
 	private void output(HNode node) {
 
@@ -256,14 +258,18 @@ class Huffman {
 
 	/**
 	 * 编码
+	 *
 	 * @param str
 	 * @return
 	 */
 	public String toHufmCode(String str) {
+		// 增加结束标记
+		String targetStr = str + "_";
+
 		String hfmCodeStr = "";
-		for (int i = 0; i < str.length(); i++) {
+		for (int i = 0; i < targetStr.length(); i++) {
 			List<HNode> searchList = search(root);
-			String c = str.charAt(i) + "";
+			String c = targetStr.charAt(i) + "";
 			for (HNode hNode : searchList) {
 				if (hNode.lChild == null && hNode.rChild == null) {
 					if (c.equals(hNode.data)) {
@@ -302,6 +308,7 @@ class Huffman {
 
 	/**
 	 * 将
+	 *
 	 * @param root
 	 * @return
 	 */
@@ -309,7 +316,7 @@ class Huffman {
 		Queue<HNode> queue = new ArrayDeque<HNode>();
 		List<HNode> list = new ArrayList<HNode>();
 
-		if(root!=null){
+		if (root != null) {
 			//将根元素加入“队列”
 			queue.offer(root);
 		}
@@ -335,6 +342,7 @@ class Huffman {
 
 	/**
 	 * 解码
+	 *
 	 * @param codeStr
 	 * @return
 	 */
@@ -351,7 +359,7 @@ class Huffman {
 			codeCharList.add(codeArray[i]);
 		}
 
-		while(codeCharList.size() > 0) {
+		while (codeCharList.size() > 0) {
 			HNode node = root;
 			do {
 				Character c = codeCharList.removeFirst();
@@ -389,7 +397,8 @@ class Huffman {
 //			}
 //			end++;
 //		}
-		return hfmDecodeStr.toString();
+		String preDecodeStr = hfmDecodeStr.toString();
+		return preDecodeStr.substring(0, preDecodeStr.lastIndexOf('_'));
 	}
 
 //	/**

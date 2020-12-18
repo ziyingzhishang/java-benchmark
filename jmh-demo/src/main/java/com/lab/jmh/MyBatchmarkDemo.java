@@ -49,9 +49,22 @@ public class MyBatchmarkDemo {
 		// 优化之后
 		System.out.println("===== 哈夫曼解码 ======");
 		// 将目标字符串利用生成好的哈夫曼编码生成对应的二进制编码
-		String hufmanCode = "000010001000000000010000011100001000010110010110000110010000000010100001000000001000000000001001111";
+		String hufmanCode = "1111011100001111001100001100111111011111011101011101001101011111001100011111011111001100001111001111011110111111011100001111001100001100111111011111011101011101001101011111001100011111011111001100001111001111011110111111111";
 		// 将上述二进制编码再翻译成字符串
 		huff.CodeToString(hufmanCode);
+	}
+
+	@Benchmark
+	public static void encodeHuffmanCode() {
+		String huffmanCode = huff.toHufmCode("14043119890510401X");
+		GuidGenerator.huffmanCodeEncode(huffmanCode);
+	}
+
+	@Benchmark
+	public static void decodeHuffmanCOde() {
+		// ZMYMPZZRQRYNZYMYZXZMYMPZZRQRYNZYMYZX_w
+		String decodeHuffmanCode = GuidGenerator.huffmanCodeDecode("ZMYMPZZRQRYNZYMYZXZMYMPZZRQRYNZYMYZX_w");
+		huff.CodeToString(decodeHuffmanCode);
 	}
 
 	public static void main(String[] args) throws RunnerException {
@@ -60,21 +73,14 @@ public class MyBatchmarkDemo {
 //			.build();
 //		new Runner(options).run();
 
-		String targetString = "14043119890510401X";
-		System.out.println("编码：" + targetString);
-		String sss = huff.toHufmCode(targetString);
-		System.out.println(sss);
-		String hufmCode = GuidGenerator.huffmanCodeEncode(sss);
-		System.out.println("编码结果：" + hufmCode);
-		System.out.println("解码：" + huff.CodeToString(hufmCode));
-
-//		String hufmCode = huff.toHufmCode("14043119890510401X");
-//		System.out.println("编码:" + hufmCode);
-//
-//		// 将上述二进制编码再翻译成字符串
-//		System.out.println("解码：" + huff.CodeToString(hufmCode));
-
-		// 000010001000000000010000011100001000010110010110000110010000000010100001000000001000000000001001111
-
+		String targetString = "14043119890510401X14043119890510401X";
+		System.out.println("目标编码：" + targetString);
+		String huffmanCode = huff.toHufmCode(targetString);
+		System.out.println("编码结果: " + huffmanCode);
+		String encodeHhuffmanCode = GuidGenerator.huffmanCodeEncode(huffmanCode);
+		System.out.println("二次编码结果：" + encodeHhuffmanCode);
+		String decodeHuffmanCode = GuidGenerator.huffmanCodeDecode(encodeHhuffmanCode);
+		System.out.println("二次编码解码: "+ decodeHuffmanCode);
+		System.out.println("哈夫曼解码：" + huff.CodeToString(decodeHuffmanCode));
 	}
 }
